@@ -1,6 +1,6 @@
 # AI-Based Intelligent Traffic Monitoring System
 
-Minimal traffic analytics project matching the resume scope:
+Traffic analytics project for
 vehicle detection, multi-object tracking, lane-wise counting, congestion analysis,
 speed estimation, illegal parking detection, and a dashboard/API layer for video-based traffic monitoring.
 

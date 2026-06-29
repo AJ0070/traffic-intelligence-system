@@ -52,10 +52,10 @@ with tab1:
 with tab2:
     st.write(
         """
-        This minimal build covers the resume scope only:
-        vehicle detection with YOLOv11, ByteTrack-based multi-object tracking,
-        lane-wise counting, congestion analysis, speed estimation, illegal parking
-        detection, a FastAPI endpoint for processing videos, and a Streamlit dashboard
-        for reviewing detections and traffic statistics.
+        This system includes vehicle detection with YOLOv11, ByteTrack-based
+        multi-object tracking, lane-wise counting, congestion analysis, speed
+        estimation, illegal parking detection, a FastAPI endpoint for processing
+        videos, and a Streamlit dashboard for reviewing detections and traffic
+        statistics.
         """
     )
