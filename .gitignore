@@ -17,6 +17,7 @@ logs/
 
 data/videos/*
 data/models/*.pt
+yolo11n.pt
 !data/videos/.gitkeep
 !data/models/.gitkeep
 
