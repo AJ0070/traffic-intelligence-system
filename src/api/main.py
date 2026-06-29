@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -5,7 +7,17 @@ from pydantic import BaseModel
 from src.config import PipelineConfig
 from src.video_processing import VideoProcessor
 
-app = FastAPI(title="Traffic Intelligence API")
+processor = VideoProcessor(PipelineConfig())
+stats_history: list[dict] = []
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    stats_history.clear()
+    yield
+
+
+app = FastAPI(title="Traffic Intelligence API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,9 +26,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-processor = VideoProcessor(PipelineConfig())
-stats_history: list[dict] = []
 
 
 class ProcessedVideoResponse(BaseModel):
@@ -28,11 +37,6 @@ class ProcessedVideoResponse(BaseModel):
     congestion: dict[int, dict]
     parking_violations: dict[int, dict]
     events: list[dict]
-
-
-@app.on_event("startup")
-async def startup() -> None:
-    stats_history.clear()
 
 
 @app.get("/")

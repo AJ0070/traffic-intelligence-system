@@ -1,3 +1,4 @@
+import warnings
 import numpy as np
 from collections import defaultdict
 import supervision as sv
@@ -7,7 +8,9 @@ from src.types import Detection, TrackedObject
 
 class VehicleTracker:
     def __init__(self):
-        self.tracker = sv.ByteTrack()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", FutureWarning)
+            self.tracker = sv.ByteTrack()
         self.tracks = defaultdict(list)
 
     def update(self, detections: list[Detection]) -> list[TrackedObject]:
